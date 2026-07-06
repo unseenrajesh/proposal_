@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ek Zaroori Sawal... ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffeef8, #ffd3ec);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #ff4a7d;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px; /* Shuru me exact 5px gap */
+            height: 80px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            height: 50px;
+            display: inline-block;
+        }
+
+        #yesBtn {
+            background-color: #ff4a7d;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 74, 125, 0.4);
+            transition: transform 0.2s;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background-color: #d60000;
+            color: white;
+            box-shadow: 0 5px 15px rgba(214, 0, 0, 0.4);
+            /* Smooth transition animation taaki button bhagta hua dikhe, achanak gayab na ho */
+            transition: all 0.15s ease-out; 
+        }
+
+        .video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Mujhse Shadi Karogi? 💍❤️</h1>
+        <div class="btn-container">
+            <button id="yesBtn" onclick="playVideo()">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div class="video-container" id="videoScreen">
+        <video id="myVideo" controls>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+
+        // Pura khel is mousemove event ka hai
+        document.addEventListener('mousemove', (e) => {
+            // Button ki current position nikalna
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            // Button ka center point calculate karna
+            const btnCenterX = btnRect.left + btnRect.width / 2;
+            const btnCenterY = btnRect.top + btnRect.height / 2;
+
+            // Cursor aur Button ke center ke beech ka distance (Maths Formula)
+            const distance = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
+
+            // Agar cursor 80px ke paas aaya (chahye touch na hua ho), toh bhagao!
+            if (distance < 80) {
+                moveNoButton();
+            }
+        });
+
+        function moveNoButton() {
+            noBtn.style.position = 'fixed';
+            
+            // Screen se bahar na jaye isliye safe boundaries
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 60);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 60);
+            
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function playVideo() {
+            const videoScreen = document.getElementById('videoScreen');
+            const video = document.getElementById('myVideo');
+            
+            videoScreen.style.display = 'flex';
+            video.play();
+        }
+    </script>
+</body>
+</html>
